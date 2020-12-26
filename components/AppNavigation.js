@@ -4,7 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { Landing, SignIn, SignUp, Home } from '../screens';
+import Landing from '../screens/Landing';
+import SignIn from '../screens/SignIn';
+import SignUp from '../screens/SignUp';
+import Home from '../screens/Home';
 
 const RootStack = createStackNavigator();
 const Drawer = createDrawerNavigator();

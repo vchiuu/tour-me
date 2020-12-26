@@ -1,13 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
-import { Text, View } from 'react-native';
-import {AppLoading} from 'expo';
+import { SafeAreaView } from 'react-native';
+import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+import AppNavigation from './components/AppNavigation';
 
 const getFonts = () => Font.loadAsync({
   'NotoSansJP-Thin': require('./assets/fonts/NotoSansJP-Thin.otf'),
   'NotoSansJP-Light': require('./assets/fonts/NotoSansJP-Light.otf'), 
-  'NotoSansJP-Regular': require('/assets/fonts/NotoSansJP-Regular.otf'), 
+  'NotoSansJP-Regular': require('./assets/fonts/NotoSansJP-Regular.otf'), 
   'NotoSansJP-Medium': require('./assets/fonts/NotoSansJP-Medium.otf'), 
   'NotoSansJP-Bold': require('./assets/fonts/NotoSansJP-Bold.otf'),
   'NotoSansJP-Black': require('./assets/fonts/NotoSansJP-Black.otf')
@@ -21,16 +23,20 @@ const App = () => {
   }, [])
 
   if (fontsLoaded) {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+      <SafeAreaView style={{flex: 1}}>
+        <NavigationContainer>
+          <AppNavigation/>
+        </NavigationContainer>
+      </SafeAreaView>
+    );
   } else {
+    return (
     <AppLoading
       startAsync={getFonts}
-      onFinish={()=>setFontsLoaded(true)}/>
+      onFinish={()=>setFontsLoaded(true)}
+      onError={console.log}/>
+    )
   }
 }
 
