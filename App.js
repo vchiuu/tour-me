@@ -7,12 +7,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppNavigation from './components/AppNavigation';
 
 const getFonts = () => Font.loadAsync({
-  'NotoSansJP-Thin': require('./assets/fonts/NotoSansJP-Thin.otf'),
-  'NotoSansJP-Light': require('./assets/fonts/NotoSansJP-Light.otf'), 
-  'NotoSansJP-Regular': require('./assets/fonts/NotoSansJP-Regular.otf'), 
-  'NotoSansJP-Medium': require('./assets/fonts/NotoSansJP-Medium.otf'), 
-  'NotoSansJP-Bold': require('./assets/fonts/NotoSansJP-Bold.otf'),
-  'NotoSansJP-Black': require('./assets/fonts/NotoSansJP-Black.otf')
+  'AirbnbCereal-Light': require('./assets/fonts/AirbnbCereal-Light.ttf'),
+  'AirbnbCereal-Medium': require('./assets/fonts/AirbnbCereal-Medium.ttf'), 
+  'AirbnbCereal-Book': require('./assets/fonts/AirbnbCereal-Book.ttf'), 
+  'AirbnbCereal-Black': require('./assets/fonts/AirbnbCereal-Black.ttf'), 
+  'AirbnbCereal-Bold': require('./assets/fonts/AirbnbCereal-Bold.ttf'),
+  'AirbnbCereal-ExtraBold': require('./assets/fonts/AirbnbCereal-ExtraBold.ttf')
 });
 
 const App = () => {
