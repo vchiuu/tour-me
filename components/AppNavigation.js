@@ -6,7 +6,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Landing from '../screens/Landing';
 import SignIn from '../screens/SignIn';
-import SignUp from '../screens/SignUp';
 import Home from '../screens/Home';
 
 const RootStack = createStackNavigator();
@@ -32,7 +31,6 @@ const AppNavigation = () => {
             <>
                 <RootStack.Screen name="Landing" component={Landing} options={{headerShown: false}} />
                 <RootStack.Screen name="SignIn" component={SignIn} options={{headerShown: false}} />
-                <RootStack.Screen name="SignUp" component={SignUp} options={{headerShown: false}} />
             </>
             )}
         </RootStack.Navigator>

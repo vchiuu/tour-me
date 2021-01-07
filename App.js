@@ -1,10 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import { SafeAreaView } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigation from './components/AppNavigation';
+import formReducer from './RootReducer';
 
 const getFonts = () => Font.loadAsync({
   'AirbnbCereal-Light': require('./assets/fonts/AirbnbCereal-Light.ttf'),
@@ -15,6 +17,8 @@ const getFonts = () => Font.loadAsync({
   'AirbnbCereal-ExtraBold': require('./assets/fonts/AirbnbCereal-ExtraBold.ttf')
 });
 
+const store = createStore(formReducer);
+
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
@@ -24,18 +28,20 @@ const App = () => {
 
   if (fontsLoaded) {
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <NavigationContainer>
-          <AppNavigation/>
-        </NavigationContainer>
-      </SafeAreaView>
+      <Provider store={store}>
+        <SafeAreaView style={{flex: 1}}>
+          <NavigationContainer>
+            <AppNavigation/>
+          </NavigationContainer>
+        </SafeAreaView>
+      </Provider>
     );
   } else {
     return (
-    <AppLoading
-      startAsync={getFonts}
-      onFinish={()=>setFontsLoaded(true)}
-      onError={console.log}/>
+      <AppLoading
+        startAsync={getFonts}
+        onFinish={()=>setFontsLoaded(true)}
+        onError={console.log}/>
     )
   }
 }

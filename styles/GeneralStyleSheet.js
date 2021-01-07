@@ -15,7 +15,7 @@ const GeneralStyles = StyleSheet.create({
     button: {
         backgroundColor: '#499AFD',
         borderRadius: 30, 
-        paddingVertical: 7,
+        paddingVertical: 9,
         width: screenWidth * 0.6,
         alignSelf: 'center'
     },
@@ -37,6 +37,31 @@ const GeneralStyles = StyleSheet.create({
         height: screenHeight * 0.7,
         top: screenHeight * 0.3,
     },
+    entryButton: {
+        alignSelf: 'flex-end',
+    },
+    entryButtonWrapper: {
+        paddingRight: '10%', 
+        paddingTop:'5%',
+    },
+    hikeBG: {
+        position: 'absolute',
+        alignSelf: 'center',
+        bottom: 0,
+    },
+    forgotPassword: {
+        fontFamily: 'AirbnbCereal-Book', 
+        fontSize: 12,
+        color: '#8F8F8F',
+        alignSelf: 'flex-end',
+        paddingRight: '11%',
+        paddingTop: 1
+    },
+    formStyle: {
+        position: 'absolute', 
+        justifyContent: 'center', 
+        width: screenWidth
+    },
     jumbotitle : {
         fontFamily: 'AirbnbCereal-Medium', 
         fontSize: 44, 
@@ -54,14 +79,7 @@ const GeneralStyles = StyleSheet.create({
         alignSelf: 'center', 
         paddingHorizontal: 10,
     }, 
-    forgotPassword: {
-        fontFamily: 'AirbnbCereal-Book', 
-        fontSize: 12,
-        color: '#8F8F8F',
-        alignSelf: 'flex-end',
-        paddingRight: '11%',
-        paddingTop: 1
-    }
+
 });
 
 export default GeneralStyles;
