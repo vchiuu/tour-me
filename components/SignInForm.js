@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { StyleSheet, TextInput, TouchableOpacity, Text, View } from 'react-native';
-import { toggleForm } from '../actions/AuthenticationActions';
+import { toggleForm, loginUser } from '../actions/AuthenticationActions';
 import EntryButton from '../assets/images/EntryButton.svg';
 import styles from '../styles/GeneralStyleSheet';
 
@@ -19,7 +20,7 @@ const SignInForm = props => {
       <TouchableOpacity>
         <Text style={styles.forgotPassword}>Forgot Your Password?</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.entryButtonWrapper}>
+      <TouchableOpacity style={styles.entryButtonWrapper} onPress={() => props.onLogin(email, password)}>
         <EntryButton style={styles.entryButton} />
       </TouchableOpacity>
       <Text style={signinform.account}>Don&apos;t have an account?</Text>
@@ -28,6 +29,11 @@ const SignInForm = props => {
       </TouchableOpacity>
     </React.Fragment>
   );
+};
+
+SignInForm.propTypes = {
+  onToggleForm: PropTypes.func,
+  onLogin: PropTypes.func,
 };
 
 const signinform = StyleSheet.create({
@@ -54,6 +60,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onToggleForm: (onLoad, formType) => {
     dispatch(toggleForm(onLoad, formType));
+  },
+  onLogin: (email, password) => {
+    dispatch(loginUser(email, password));
   },
 });
 

@@ -26,6 +26,7 @@ export const registerUser = (firstName, lastName, email, password) => async disp
         firstName: firstName,
         lastName: lastName,
         email: email,
+        isSignedIn: true,
       },
     });
   } catch (err) {
@@ -55,6 +56,7 @@ export const loginUser = (email, password) => {
             firstName: userData.firstName,
             lastName: userData.lastName,
             email: email,
+            isSignedIn: true,
           },
         });
       } else {

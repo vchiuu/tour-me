@@ -13,7 +13,7 @@ const RootStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const AppNavigation = props => {
-
+  console.log(props.isSignedIn);
   const DrawerRoutes = () => (
     <Drawer.Navigator drawerPosition="right" drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
@@ -29,7 +29,6 @@ const AppNavigation = props => {
         <React.Fragment>
           <RootStack.Screen name="Landing" component={Landing} options={{ headerShown: false }} />
           <RootStack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
-          <RootStack.Screen name="Home" component={DrawerRoutes} options={{ headerShown: false }} />
         </React.Fragment>
       )}
     </RootStack.Navigator>
