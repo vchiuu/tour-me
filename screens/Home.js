@@ -1,23 +1,12 @@
-import React, { useRef } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Modalize } from 'react-native-modalize';
+import React from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 
-const Home = () => {
-    const modalizeRef = useRef(null);
-
-    const onOpen = () => {
-        modalizeRef.currrent?.open();
-    };
-    return (
-        <>
-            <TouchableOpacity onPress={onOpen}>
-                <Text>Open the modal</Text>
-            </TouchableOpacity>
-            <Modalize ref={modalizeRef}>
-                <Text> Test Content </Text>
-            </Modalize>
-        </>
-    )
-}
+const Home = () => (
+  <React.Fragment>
+    <TouchableOpacity>
+      <Text>Open the modal</Text>
+    </TouchableOpacity>
+  </React.Fragment>
+);
 
 export default Home;

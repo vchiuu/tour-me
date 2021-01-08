@@ -1,7 +1,5 @@
 import React from 'react';
 
-const DrawerContent = () => {
-
-}
+const DrawerContent = () => {};
 
 export default DrawerContent;

@@ -1,8 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { SafeAreaView } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack';
+import React from 'react';
+import { connect } from 'react-redux';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+
+import DrawerContent from './DrawerContent';
 
 import Landing from '../screens/Landing';
 import SignIn from '../screens/SignIn';
@@ -11,30 +12,32 @@ import Home from '../screens/Home';
 const RootStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const AppNavigation = () => {
-    const [isSignedIn, setIsSignedIn] = useState(false);
+const AppNavigation = props => {
 
-    const DrawerRoutes = () => {
-        return (
-            <Drawer.Navigator drawerPosition='right' drawerContent={props => <DrawerContent {...props}/>}>
-                <Drawer.Screen name="Home" component={Home} />
-            </Drawer.Navigator>
-        )
-    }
-    return (
-        <RootStack.Navigator>
-            {(isSignedIn) ? (
-            <>
-                <RootStack.Screen name="Home" component={DrawerRoutes} options={{headerShown: false}} />
-            </>
-            ) : (
-            <>
-                <RootStack.Screen name="Landing" component={Landing} options={{headerShown: false}} />
-                <RootStack.Screen name="SignIn" component={SignIn} options={{headerShown: false}} />
-            </>
-            )}
-        </RootStack.Navigator>
-    )
-}
+  const DrawerRoutes = () => (
+    <Drawer.Navigator drawerPosition="right" drawerContent={props => <DrawerContent {...props} />}>
+      <Drawer.Screen name="Home" component={Home} />
+    </Drawer.Navigator>
+  );
+  return (
+    <RootStack.Navigator>
+      {props.isSignedIn ? (
+        <React.Fragment>
+          <RootStack.Screen name="Home" component={DrawerRoutes} options={{ headerShown: false }} />
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <RootStack.Screen name="Landing" component={Landing} options={{ headerShown: false }} />
+          <RootStack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
+          <RootStack.Screen name="Home" component={DrawerRoutes} options={{ headerShown: false }} />
+        </React.Fragment>
+      )}
+    </RootStack.Navigator>
+  );
+};
 
-export default AppNavigation; 
+const mapStateToProps = state => ({
+  isSignedIn: state.userProfile.isSignedIn,
+});
+
+export default connect(mapStateToProps)(AppNavigation);
