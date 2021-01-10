@@ -13,12 +13,12 @@ const RootStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const AppNavigation = props => {
-  console.log(props.isSignedIn);
   const DrawerRoutes = () => (
     <Drawer.Navigator drawerPosition="right" drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
     </Drawer.Navigator>
   );
+
   return (
     <RootStack.Navigator>
       {props.isSignedIn ? (

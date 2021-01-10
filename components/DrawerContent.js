@@ -1,5 +1,6 @@
 import React from 'react';
+import { View } from 'react-native';
 
-const DrawerContent = () => {};
+const DrawerContent = () => <View />;
 
 export default DrawerContent;

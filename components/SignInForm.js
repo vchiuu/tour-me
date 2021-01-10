@@ -14,9 +14,23 @@ const SignInForm = props => {
     <React.Fragment>
       <Text style={styles.jumbotitle}> Sign In</Text>
       <View style={{ paddingTop: 25 }} />
-      <TextInput style={styles.textform} onChangeText={text => setEmail(text)} value={email} />
+      <TextInput
+        style={styles.textform}
+        keyboardType="email-address"
+        onChangeText={text => setEmail(text)}
+        placeholder="Email"
+        textContentType="emailAddress"
+        value={email}
+      />
       <View style={{ paddingTop: 10 }} />
-      <TextInput style={styles.textform} onChangeText={text => setPassword(text)} value={password} />
+      <TextInput
+        style={styles.textform}
+        onChangeText={text => setPassword(text)}
+        placeholder="Password"
+        secureTextEntry
+        textContentType="password"
+        value={password}
+      />
       <TouchableOpacity>
         <Text style={styles.forgotPassword}>Forgot Your Password?</Text>
       </TouchableOpacity>

@@ -11,7 +11,7 @@ export const toggleForm = (onLoad, formType) => ({
 
 export const registerUser = (firstName, lastName, email, password) => async dispatch => {
   try {
-    const user = await firebase.auth().createUserWithEmailAndPassword(email, password);
+    const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password);
     const userData = {
       id: user.uid,
       accountType: 'USER',
@@ -23,10 +23,9 @@ export const registerUser = (firstName, lastName, email, password) => async disp
     dispatch({
       type: 'SET_USER_INFO',
       payload: {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        isSignedIn: true,
+        firstName,
+        lastName,
+        email,
       },
     });
   } catch (err) {
@@ -44,26 +43,23 @@ export const registerUser = (firstName, lastName, email, password) => async disp
   }
 };
 
-export const loginUser = (email, password) => {
-  async dispatch => {
-    try {
-      const user = await firebase.auth().signInWithEmailAndPassword(email, password);
-      const userData = await usersRef.doc(user.uid).get();
-      if (userData.exists) {
-        dispatch({
-          type: 'SET_USER_INFO',
-          payload: {
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            email: email,
-            isSignedIn: true,
-          },
-        });
-      } else {
-        throw new Error('User does not exist anymore');
-      }
-    } catch (err) {
-      console.log(err);
+export const loginUser = (email, password) => async dispatch => {
+  try {
+    const { user } = await firebase.auth().signInWithEmailAndPassword(email, password);
+    const userData = await usersRef.doc(user.uid).get();
+    if (userData.exists) {
+      dispatch({
+        type: 'SET_USER_INFO',
+        payload: {
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email,
+        },
+      });
+    } else {
+      throw new Error('User does not exist anymore');
     }
-  };
+  } catch (err) {
+    console.log(err);
+  }
 };
