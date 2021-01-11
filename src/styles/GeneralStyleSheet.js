@@ -43,6 +43,12 @@ const GeneralStyles = StyleSheet.create({
     paddingRight: '10%',
     paddingTop: '5%',
   },
+  formErrorMsg: {
+    color: '#F52525',
+    fontFamily: 'AirbnbCereal-Book',
+    fontSize: 12,
+    paddingLeft: '11%',
+  },
   hikeBG: {
     position: 'absolute',
     alignSelf: 'center',

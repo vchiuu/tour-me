@@ -7,17 +7,92 @@ import EntryButton from '../assets/images/EntryButton.svg';
 import styles from '../styles/GeneralStyleSheet';
 
 const SignUpForm = props => {
-  const [firstName, setFirstName] = useState('First Name');
-  const [lastName, setLastName] = useState('Last Name');
-  const [email, setEmail] = useState('Email');
-  const [password, setPassword] = useState('Password');
-  const [confirmPassword, setConfirmPassword] = useState('Confirm Password');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [emailValidation, setEmailValidation] = useState({
+    isValidEmail: true,
+    emailErrorMsg: '',
+  });
+  const [passwordValidation, setPasswordValidation] = useState({
+    isValidPassword: true,
+    passwordErrorMsg: '',
+  });
+  const [confirmPwdValidation, setConfirmPwdValidation] = useState({
+    isConfirmPassword: true,
+    confirmPwdErrorMsg: '',
+  });
+  const [formValidation, setFormValidation] = useState({
+    isValidForm: true,
+    formErrorMsg: '',
+  });
 
-  function validateAndSignUp(firstName, lastName, email, password, confirmPassword) {
-    if (password != confirmPassword) {
-      console.log('Password and Confirmation do not match');
+  const handleValidEmail = value => {
+    if (value.trim().length === 0) {
+      setEmailValidation({
+        isValidEmail: false,
+        emailErrorMsg: 'The email field is required.',
+      });
+    } else if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value)) {
+      setEmailValidation({
+        isValidEmail: true,
+        emailErrorMsg: '',
+      });
     } else {
+      setEmailValidation({
+        isValidEmail: false,
+        emailErrorMsg: 'Please enter a valid email address',
+      });
+    }
+  };
+
+  const handleValidPassword = value => {
+    if (value.trim().length < 8) {
+      setPasswordValidation({
+        isValidPassword: false,
+        passwordErrorMsg: 'Password must be at least 8 characters',
+      });
+    } else if (value.search(/[A-Z]/) < 0) {
+      setPasswordValidation({
+        isValidPassword: false,
+        passwordErrorMsg: 'Password must contain at least 1 uppercase letter',
+      });
+    } else {
+      setPasswordValidation({
+        isValidPassword: true,
+        passwordErrorMsg: '',
+      });
+    }
+  };
+
+  const validateConfirmPassword = value => {
+    if (value != password) {
+      setConfirmPwdValidation({
+        isConfirmPassword: false,
+        confirmPwdErrorMsg: 'Password and confirmation do not match',
+      });
+    } else {
+      setConfirmPwdValidation({
+        isConfirmPassword: true,
+        confirmPwdErrorMsg: '',
+      });
+    }
+  };
+
+  function validateAndSignUp(firstName, lastName, email, password) {
+    if (emailValidation.isValidEmail && passwordValidation.isValidPassword && confirmPwdValidation.isConfirmPassword) {
+      setFormValidation({
+        isValidForm: true,
+        formErrorMsg: '',
+      });
       props.onRegister(firstName, lastName, email, password);
+    } else {
+      setFormValidation({
+        isValidForm: false,
+        formErrorMsg: 'Please fix the errors above before registering',
+      });
     }
   }
 
@@ -30,23 +105,60 @@ const SignUpForm = props => {
           style={[styles.textform, { width: '48%' }]}
           onChangeText={text => setFirstName(text)}
           value={firstName}
+          placeholder="First Name"
         />
         <View style={{ paddingHorizontal: '2%' }} />
         <TextInput
           style={[styles.textform, { width: '48%' }]}
           onChangeText={text => setLastName(text)}
           value={lastName}
+          placeholder="Last Name"
         />
       </View>
       <View style={{ paddingTop: 10 }} />
-      <TextInput style={styles.textform} onChangeText={text => setEmail(text)} value={email} />
+      <TextInput
+        style={styles.textform}
+        value={email}
+        placeholder="Email"
+        textContentType="emailAddress"
+        onChangeText={text => setEmail(text)}
+        onEndEditing={e => handleValidEmail(e.nativeEvent.text)}
+      />
+      {!emailValidation.isValidEmail ? (
+        <Text style={styles.formErrorMsg}> {emailValidation.emailErrorMsg} </Text>
+      ) : null}
       <View style={{ paddingTop: 10 }} />
-      <TextInput style={styles.textform} onChangeText={text => setPassword(text)} value={password} />
+      <TextInput
+        style={styles.textform}
+        onChangeText={text => setPassword(text)}
+        value={password}
+        placeholder="Password"
+        secureTextEntry
+        textContentType="password"
+        onEndEditing={e => handleValidPassword(e.nativeEvent.text)}
+      />
+      {!passwordValidation.isValidPassword ? (
+        <Text style={styles.formErrorMsg}> {passwordValidation.passwordErrorMsg} </Text>
+      ) : null}
       <View style={{ paddingTop: 10 }} />
-      <TextInput style={styles.textform} onChangeText={text => setConfirmPassword(text)} value={confirmPassword} />
+      <TextInput
+        style={styles.textform}
+        onChangeText={text => setConfirmPassword(text)}
+        value={confirmPassword}
+        placeholder="Confirm Password"
+        secureTextEntry
+        textContentType="password"
+        onEndEditing={e => validateConfirmPassword(e.nativeEvent.text)}
+      />
+      {!confirmPwdValidation.isConfirmPassword ? (
+        <Text style={styles.formErrorMsg}> {confirmPwdValidation.confirmPwdErrorMsg} </Text>
+      ) : null}
+      {!formValidation.isValidForm ? (
+        <Text style={[styles.formErrorMsg, { paddingTop: 2 }]}> {formValidation.formErrorMsg} </Text>
+      ) : null}
       <TouchableOpacity
         style={styles.entryButtonWrapper}
-        onPress={() => validateAndSignUp(firstName, lastName, email, password, confirmPassword)}
+        onPress={() => validateAndSignUp(firstName, lastName, email, password)}
       >
         <EntryButton style={styles.entryButton} />
       </TouchableOpacity>
