@@ -153,8 +153,12 @@ const SignUpForm = props => {
       {!confirmPwdValidation.isConfirmPassword ? (
         <Text style={styles.formErrorMsg}> {confirmPwdValidation.confirmPwdErrorMsg} </Text>
       ) : null}
+      <View style={{ paddingVertical: 5 }} />
       {!formValidation.isValidForm ? (
         <Text style={[styles.formErrorMsg, { paddingTop: 2 }]}> {formValidation.formErrorMsg} </Text>
+      ) : null}
+      {!props.isValidFirebaseAuth ? (
+        <Text style={styles.firebaseErrorMsg}> {props.firebaseAuthErrorMessage} </Text>
       ) : null}
       <TouchableOpacity
         style={styles.entryButtonWrapper}
@@ -194,6 +198,8 @@ const signinform = StyleSheet.create({
 const mapStateToProps = state => ({
   onLoad: state.loginRegistration.onLoad,
   formType: state.loginRegistration.formType,
+  isValidFirebaseAuth: state.firebaseAuth.isValidFirebaseAuth,
+  firebaseAuthErrorMessage: state.firebaseAuth.firebaseAuthErrorMessage,
 });
 
 const mapDispatchToProps = dispatch => ({

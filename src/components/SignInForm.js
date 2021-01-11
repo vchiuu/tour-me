@@ -7,9 +7,8 @@ import EntryButton from '../assets/images/EntryButton.svg';
 import styles from '../styles/GeneralStyleSheet';
 
 const SignInForm = props => {
-  const [email, setEmail] = useState('Email');
-  const [password, setPassword] = useState('Password');
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <React.Fragment>
       <Text style={styles.jumbotitle}> Sign In</Text>
@@ -34,6 +33,10 @@ const SignInForm = props => {
       <TouchableOpacity>
         <Text style={styles.forgotPassword}>Forgot Your Password?</Text>
       </TouchableOpacity>
+      <View style={{ paddingVertical: 5 }} />
+      {!props.isValidFirebaseAuth ? (
+        <Text style={styles.firebaseErrorMsg}> {props.firebaseAuthErrorMessage} </Text>
+      ) : null}
       <TouchableOpacity style={styles.entryButtonWrapper} onPress={() => props.onLogin(email, password)}>
         <EntryButton style={styles.entryButton} />
       </TouchableOpacity>
@@ -64,11 +67,19 @@ const signinform = StyleSheet.create({
     paddingLeft: '10%',
     textTransform: 'uppercase',
   },
+  errorMessage: {
+    color: '#F52525',
+    fontFamily: 'AirbnbCereal-Book',
+    fontSize: 12,
+    paddingLeft: '11%',
+  },
 });
 
 const mapStateToProps = state => ({
   onLoad: state.loginRegistration.onLoad,
   formType: state.loginRegistration.formType,
+  isValidFirebaseAuth: state.firebaseAuth.isValidFirebaseAuth,
+  firebaseAuthErrorMessage: state.firebaseAuth.firebaseAuthErrorMessage,
 });
 
 const mapDispatchToProps = dispatch => ({

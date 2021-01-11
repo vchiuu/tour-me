@@ -1,13 +1,22 @@
 import { firebase } from '../firebase/config';
 import { usersRef } from '../firebase/references';
 
-export const toggleForm = (onLoad, formType) => ({
-  type: 'TOGGLE_FORM',
-  payload: {
-    onLoad: onLoad,
-    formType: formType,
-  },
-});
+export const toggleForm = (onLoad, formType) => async dispatch => {
+  dispatch({
+    type: 'TOGGLE_FORM',
+    payload: {
+      onLoad: onLoad,
+      formType: formType,
+    },
+  });
+  dispatch({
+    type: 'FIREBASE_VALIDATION',
+    payload: {
+      isValidFirebaseAuth: true,
+      firebaseAuthErrorMessage: '',
+    },
+  });
+};
 
 export const registerUser = (firstName, lastName, email, password) => async dispatch => {
   try {
@@ -31,10 +40,22 @@ export const registerUser = (firstName, lastName, email, password) => async disp
   } catch (err) {
     switch (err.code) {
       case 'auth/email-already-in-use':
-        console.log('That email address is already in use!');
+        dispatch({
+          type: 'FIREBASE_VALIDATION',
+          payload: {
+            isValidFirebaseAuth: false,
+            firebaseAuthErrorMessage: 'This email is already in use. Please select a different email or sign-in.',
+          },
+        });
         break;
       case 'auth/invalid-email':
-        console.log('That email address is invalid!');
+        dispatch({
+          type: 'FIREBASE_VALIDATION',
+          payload: {
+            isValidFirebaseAuth: false,
+            firebaseAuthErrorMessage: 'This is an invalid email. Please select a valid email address.',
+          },
+        });
         break;
       default:
         console.log(err);
@@ -60,6 +81,17 @@ export const loginUser = (email, password) => async dispatch => {
       throw new Error('User does not exist anymore');
     }
   } catch (err) {
-    console.log(err);
+    if (err.code == 'auth/user-not-found' || err.code == 'auth/wrong-password') {
+      dispatch({
+        type: 'FIREBASE_VALIDATION',
+        payload: {
+          isValidFirebaseAuth: false,
+          firebaseAuthErrorMessage:
+            "The email address or password that you've entered does not match any account. Please try again.",
+        },
+      });
+    } else {
+      console.log(err.code);
+    }
   }
 };

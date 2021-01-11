@@ -49,6 +49,17 @@ const GeneralStyles = StyleSheet.create({
     fontSize: 12,
     paddingLeft: '11%',
   },
+  firebaseErrorMsg: {
+    borderRadius: 10,
+    color: '#F52525',
+    fontFamily: 'AirbnbCereal-Book',
+    fontSize: 12,
+    marginLeft: '10%',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    width: '80%',
+    backgroundColor: '#FFCCCC',
+  },
   hikeBG: {
     position: 'absolute',
     alignSelf: 'center',
