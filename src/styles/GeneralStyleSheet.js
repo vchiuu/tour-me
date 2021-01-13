@@ -4,6 +4,12 @@ var screenHeight = Dimensions.get('window').height;
 var screenWidth = Dimensions.get('window').width;
 
 const GeneralStyles = StyleSheet.create({
+  backdrop: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    justifyContent: 'center',
+    padding: 20,
+  },
   background: {
     flex: 1,
     backgroundColor: '#D9F1FD',
@@ -27,18 +33,35 @@ const GeneralStyles = StyleSheet.create({
     fontFamily: 'AirbnbCereal-Light',
     fontSize: 16,
   },
-  contentCard: {
-    width: '116px',
-    height: '167px',
+  contentCardDark: {
+    width: 116,
+    height: 167,
     borderRadius: 15,
     shadowColor: '#000',
     shadowOffset: {
-      width: 0,
+      width: 1,
       height: 2,
     },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
     elevation: 4,
+    backgroundColor: 'red',
+    color: 'white',
+  },
+  contentCardLight: {
+    width: 116,
+    height: 167,
+    borderRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+    backgroundColor: 'blue',
+    marginRight: 10,
   },
   drawer: {
     flex: 4,
@@ -81,6 +104,15 @@ const GeneralStyles = StyleSheet.create({
     alignSelf: 'center',
     bottom: 0,
   },
+  innerModal: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    paddingHorizontal: '6%',
+    borderRadius: 30,
+    width: screenWidth * 0.7,
+    alignSelf: 'center',
+    paddingVertical: '4%',
+  },
   forgotPassword: {
     fontFamily: 'AirbnbCereal-Book',
     fontSize: 12,
@@ -99,6 +131,14 @@ const GeneralStyles = StyleSheet.create({
     fontSize: 44,
     color: '#8F8F8F',
     paddingLeft: '9%',
+  },
+  modalCloseBtn: {
+    alignSelf: 'flex-end',
+  },
+  modalTitle: {
+    fontFamily: 'AirbnbCereal-Book',
+    fontSize: 16,
+    color: 'white',
   },
   textform: {
     backgroundColor: '#fff',

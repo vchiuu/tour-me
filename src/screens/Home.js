@@ -1,24 +1,51 @@
 import React from 'react';
-
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
+import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import ContentCard from '../components/ContentCard';
 import HikeBG from '../assets/images/HikeBG.svg';
 import QRScanIcon from '../assets/images/QRScanIcon';
 import styles from '../styles/GeneralStyleSheet';
 
 const Home = () => {
-  console.log('make those red things go away');
+  const TEST_DATA = [
+    {
+      id: 'sfijasodigha0',
+      title: 'First Title',
+      briefDescription: 'First Brief Description',
+      lightMode: true,
+    },
+    {
+      id: 'aksodfheow1',
+      title: 'Second Title',
+      briefDescription: 'Second Brief Description',
+      lightMode: true,
+    },
+    {
+      id: 'asdiufhaosdf',
+      title: 'Third Title',
+      briefDescription: 'Third Brief Description',
+      lightMode: false,
+    },
+  ];
+
+  const renderItem = ({ item }) => (
+    <ContentCard title={item.title} briefDescription={item.briefDescription} lightMode={item.lightMode} />
+  );
   return (
     <>
-      <View style={styles.background}>
+      <SafeAreaView style={styles.background}>
         <Text style={homeStyles.welcomeTitle}> Welcome back </Text>
         <Text style={homeStyles.welcomeSubtitle}> Where are we exploring today? </Text>
         <HikeBG style={{ position: 'absolute', alignSelf: 'center', top: 10 }} />
         <View style={styles.drawer}>
           <Text style={homeStyles.drawerSubtitle}>Recent Adventures</Text>
-          <View style={{borderRadius: }}>
-
-          </View>
+          <View style={{ paddingVertical: '2%' }} />
+          <FlatList
+            style={{ flexGrow: 0 }}
+            horizontal={true}
+            data={TEST_DATA}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
           <Text style={homeStyles.drawerSubtitle}>Recommended Adventures</Text>
           <TouchableOpacity style={styles.button}>
             <QRScanIcon />
@@ -26,7 +53,7 @@ const Home = () => {
             <Text style={styles.buttonText}>Scan QR</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </SafeAreaView>
     </>
   );
 };
