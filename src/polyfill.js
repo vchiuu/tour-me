@@ -3,6 +3,7 @@ import { Platform, InteractionManager } from 'react-native';
 const _setTimeout = global.setTimeout;
 const _clearTimeout = global.clearTimeout;
 const MAX_TIMER_DURATION_MS = 60 * 1000;
+
 if (Platform.OS === 'android') {
   // Work around issue `Setting a timer for long time`
   // see: https://github.com/firebase/firebase-js-sdk/issues/97

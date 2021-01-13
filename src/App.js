@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Provider } from 'react-redux';
-import configureStore from './configureStore';
 import { SafeAreaView } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
+
 import AppNavigation from './components/AppNavigation';
+import configureStore from './configureStore';
 
 const getFonts = () =>
   Font.loadAsync({
@@ -22,21 +23,19 @@ const store = configureStore();
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
-  useEffect(() => {}, []);
-
-  if (fontsLoaded) {
-    return (
-      <Provider store={store}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <NavigationContainer>
-            <AppNavigation />
-          </NavigationContainer>
-        </SafeAreaView>
-      </Provider>
-    );
-  } else {
+  if (!fontsLoaded) {
     return <AppLoading startAsync={getFonts} onFinish={() => setFontsLoaded(true)} onError={console.log} />;
   }
+
+  return (
+    <Provider store={store}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <NavigationContainer>
+          <AppNavigation />
+        </NavigationContainer>
+      </SafeAreaView>
+    </Provider>
+  );
 };
 
 export default App;
