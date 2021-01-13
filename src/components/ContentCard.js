@@ -14,7 +14,7 @@ const ContentCard = props => {
     <>
       <TouchableOpacity onPress={toggleModal} onLongPress={console.log('this is a long press')}>
         <View style={props.lightMode ? styles.contentCardLight : styles.contentCardLight}>
-          <Text style={styles.modalTitle}>{props.title}</Text>
+          <Text style={styles.contentCardTitle}>{props.title}</Text>
         </View>
       </TouchableOpacity>
       <Modal isVisible={isModalVisible} animationIn="slideInUp" animationOut="slideOutDown">
@@ -22,10 +22,11 @@ const ContentCard = props => {
           <TouchableOpacity style={styles.modalCloseBtn} onPress={toggleModal}>
             <CloseButton />
           </TouchableOpacity>
-          <Text>{props.title}</Text>
-          <Text>{props.briefDescription}</Text>
-          <TouchableOpacity>
-            <Text>Start Hike</Text>
+          <Text style={styles.modalTitle}>{props.title}</Text>
+          <Text style={styles.modalBriefDescription}>{props.briefDescription}</Text>
+          <View style={{ paddingVertical: 5 }} />
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Start Hike</Text>
           </TouchableOpacity>
         </View>
       </Modal>

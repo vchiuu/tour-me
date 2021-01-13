@@ -63,6 +63,14 @@ const GeneralStyles = StyleSheet.create({
     backgroundColor: 'blue',
     marginRight: 10,
   },
+  contentCardTitle: {
+    display: 'flex',
+    paddingHorizontal: '12%',
+    fontFamily: 'AirbnbCereal-Book',
+    fontSize: 16,
+    color: 'white',
+    paddingTop: '98%',
+  },
   drawer: {
     flex: 4,
     backgroundColor: '#fff',
@@ -109,7 +117,7 @@ const GeneralStyles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: '6%',
     borderRadius: 30,
-    width: screenWidth * 0.7,
+    width: screenWidth * 0.8,
     alignSelf: 'center',
     paddingVertical: '4%',
   },
@@ -137,8 +145,14 @@ const GeneralStyles = StyleSheet.create({
   },
   modalTitle: {
     fontFamily: 'AirbnbCereal-Book',
-    fontSize: 16,
-    color: 'white',
+    fontSize: 18,
+    color: 'black',
+  },
+  modalBriefDescription: {
+    paddingTop: 8,
+    fontFamily: 'AirbnbCereal-Light',
+    fontSize: 14,
+    maxWidth: '95%',
   },
   textform: {
     backgroundColor: '#fff',

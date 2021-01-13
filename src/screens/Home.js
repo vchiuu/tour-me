@@ -46,8 +46,17 @@ const Home = () => {
             renderItem={renderItem}
             keyExtractor={item => item.id}
           />
+          <View style={{ paddingVertical: '6%' }} />
           <Text style={homeStyles.drawerSubtitle}>Recommended Adventures</Text>
-          <TouchableOpacity style={styles.button}>
+          <View style={{ paddingVertical: '2%' }} />
+          <FlatList
+            style={{ flexGrow: 0 }}
+            horizontal={true}
+            data={TEST_DATA}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+          <TouchableOpacity style={[styles.button, { position: 'absolute', bottom: '5%' }]}>
             <QRScanIcon />
             <View style={{ paddingRight: 5 }} />
             <Text style={styles.buttonText}>Scan QR</Text>
