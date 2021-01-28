@@ -81,7 +81,7 @@ export const loginUser = (email, password) => async dispatch => {
       throw new Error('User does not exist anymore');
     }
   } catch (err) {
-    if (err.code == 'auth/user-not-found' || err.code == 'auth/wrong-password') {
+    if (err.code == 'auth/user-not-found' || err.code == 'auth/wrong-password' || err.code == 'auth/invalid-email') {
       dispatch({
         type: 'FIREBASE_VALIDATION',
         payload: {

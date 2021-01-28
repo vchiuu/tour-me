@@ -115,7 +115,6 @@ const SignUpForm = props => {
           placeholder="Last Name"
         />
       </View>
-      <View style={{ paddingTop: 10 }} />
       <TextInput
         style={styles.textform}
         value={email}
@@ -124,10 +123,7 @@ const SignUpForm = props => {
         onChangeText={text => setEmail(text)}
         onEndEditing={e => handleValidEmail(e.nativeEvent.text)}
       />
-      {!emailValidation.isValidEmail ? (
-        <Text style={styles.formErrorMsg}> {emailValidation.emailErrorMsg} </Text>
-      ) : null}
-      <View style={{ paddingTop: 10 }} />
+      {!emailValidation.isValidEmail && <Text style={styles.formErrorMsg}> {emailValidation.emailErrorMsg} </Text>}
       <TextInput
         style={styles.textform}
         onChangeText={text => setPassword(text)}
@@ -137,10 +133,9 @@ const SignUpForm = props => {
         textContentType="password"
         onEndEditing={e => handleValidPassword(e.nativeEvent.text)}
       />
-      {!passwordValidation.isValidPassword ? (
+      {!passwordValidation.isValidPassword && (
         <Text style={styles.formErrorMsg}> {passwordValidation.passwordErrorMsg} </Text>
-      ) : null}
-      <View style={{ paddingTop: 10 }} />
+      )}
       <TextInput
         style={styles.textform}
         onChangeText={text => setConfirmPassword(text)}
@@ -150,16 +145,14 @@ const SignUpForm = props => {
         textContentType="password"
         onEndEditing={e => validateConfirmPassword(e.nativeEvent.text)}
       />
-      {!confirmPwdValidation.isConfirmPassword ? (
+      {!confirmPwdValidation.isConfirmPassword && (
         <Text style={styles.formErrorMsg}> {confirmPwdValidation.confirmPwdErrorMsg} </Text>
-      ) : null}
+      )}
       <View style={{ paddingVertical: 5 }} />
-      {!formValidation.isValidForm ? (
+      {!formValidation.isValidForm && (
         <Text style={[styles.formErrorMsg, { paddingTop: 2 }]}> {formValidation.formErrorMsg} </Text>
-      ) : null}
-      {!props.isValidFirebaseAuth ? (
-        <Text style={styles.firebaseErrorMsg}> {props.firebaseAuthErrorMessage} </Text>
-      ) : null}
+      )}
+      {!props.isValidFirebaseAuth && <Text style={styles.firebaseErrorMsg}> {props.firebaseAuthErrorMessage} </Text>}
       <TouchableOpacity
         style={styles.entryButtonWrapper}
         onPress={() => validateAndSignUp(firstName, lastName, email, password)}

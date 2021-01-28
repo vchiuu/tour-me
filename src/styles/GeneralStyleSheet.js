@@ -111,6 +111,8 @@ const GeneralStyles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     bottom: 0,
+    elevation: -1,
+    zIndex: -1,
   },
   innerModal: {
     alignItems: 'center',
@@ -164,6 +166,7 @@ const GeneralStyles = StyleSheet.create({
     color: '#8F8F8F',
     alignSelf: 'center',
     paddingHorizontal: 10,
+    marginTop: 10,
   },
 });
 

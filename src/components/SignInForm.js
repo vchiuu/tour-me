@@ -21,7 +21,6 @@ const SignInForm = props => {
         textContentType="emailAddress"
         value={email}
       />
-      <View style={{ paddingTop: 10 }} />
       <TextInput
         style={styles.textform}
         onChangeText={text => setPassword(text)}
@@ -34,9 +33,7 @@ const SignInForm = props => {
         <Text style={styles.forgotPassword}>Forgot Your Password?</Text>
       </TouchableOpacity>
       <View style={{ paddingVertical: 5 }} />
-      {!props.isValidFirebaseAuth ? (
-        <Text style={styles.firebaseErrorMsg}> {props.firebaseAuthErrorMessage} </Text>
-      ) : null}
+      {!props.isValidFirebaseAuth && <Text style={styles.firebaseErrorMsg}> {props.firebaseAuthErrorMessage} </Text>}
       <TouchableOpacity style={styles.entryButtonWrapper} onPress={() => props.onLogin(email, password)}>
         <EntryButton style={styles.entryButton} />
       </TouchableOpacity>
