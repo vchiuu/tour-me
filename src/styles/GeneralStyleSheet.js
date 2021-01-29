@@ -72,7 +72,6 @@ const GeneralStyles = StyleSheet.create({
     paddingTop: '98%',
   },
   drawer: {
-    flex: 4,
     backgroundColor: '#fff',
     borderTopLeftRadius: 45,
     borderTopRightRadius: 45,
@@ -123,6 +122,10 @@ const GeneralStyles = StyleSheet.create({
     alignSelf: 'center',
     paddingVertical: '4%',
   },
+  flatlist: {
+    height: 0,
+    backgroundColor: 'red',
+  },
   forgotPassword: {
     fontFamily: 'AirbnbCereal-Book',
     fontSize: 12,
@@ -167,6 +170,16 @@ const GeneralStyles = StyleSheet.create({
     alignSelf: 'center',
     paddingHorizontal: 10,
     marginTop: 10,
+  },
+  title: {
+    fontFamily: 'AirbnbCereal-Medium',
+    fontSize: 24,
+    alignSelf: 'center',
+  },
+  subtitle: {
+    fontFamily: 'AirbnbCereal-Book',
+    fontSize: 18,
+    paddingVertical: 10,
   },
 });
 

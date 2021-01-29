@@ -8,6 +8,7 @@ import DrawerContent from './DrawerContent';
 import Landing from '../screens/Landing';
 import SignIn from '../screens/SignIn';
 import Home from '../screens/Home';
+import Venue from '../screens/Venue';
 
 const RootStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -15,7 +16,8 @@ const Drawer = createDrawerNavigator();
 const AppNavigation = props => {
   const DrawerRoutes = () => (
     <Drawer.Navigator drawerPosition="right" drawerContent={props => <DrawerContent {...props} />}>
-      <Drawer.Screen name="Home" component={Home} />
+      {/*<Drawer.Screen name="Home" component={Home} />*/}
+      <RootStack.Screen name="Venue" component={Venue} options={{ headerShown: false }} />
     </Drawer.Navigator>
   );
 
@@ -24,6 +26,7 @@ const AppNavigation = props => {
       {props.isSignedIn ? (
         <React.Fragment>
           <RootStack.Screen name="Home" component={DrawerRoutes} options={{ headerShown: false }} />
+          <RootStack.Screen name="Venue" component={Venue} options={{ headerShown: false }} />
         </React.Fragment>
       ) : (
         <React.Fragment>

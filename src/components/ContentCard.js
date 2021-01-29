@@ -4,7 +4,7 @@ import Modal from 'react-native-modal';
 import CloseButton from '../assets/images/CloseButton';
 import styles from '../styles/GeneralStyleSheet';
 
-const ContentCard = props => {
+const ContentCard = (props, { navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -12,7 +12,7 @@ const ContentCard = props => {
 
   return (
     <>
-      <TouchableOpacity onPress={toggleModal} onLongPress={console.log('this is a long press')}>
+      <TouchableOpacity onPress={toggleModal}>
         <View style={props.lightMode ? styles.contentCardLight : styles.contentCardLight}>
           <Text style={styles.contentCardTitle}>{props.title}</Text>
         </View>
@@ -25,7 +25,7 @@ const ContentCard = props => {
           <Text style={styles.modalTitle}>{props.title}</Text>
           <Text style={styles.modalBriefDescription}>{props.briefDescription}</Text>
           <View style={{ paddingVertical: 5 }} />
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Venue', { props: props })}>
             <Text style={styles.buttonText}>Start Hike</Text>
           </TouchableOpacity>
         </View>

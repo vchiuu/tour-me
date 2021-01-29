@@ -51,7 +51,6 @@ const signin = StyleSheet.create({
     paddingLeft: '10%',
     textTransform: 'uppercase',
   },
-
   museum: {
     position: 'absolute',
     top: '7%',
