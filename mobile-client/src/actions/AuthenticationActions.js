@@ -1,5 +1,9 @@
+import get from 'lodash/get';
+
 import { firebase } from '../firebase/config';
 import { usersRef } from '../firebase/references';
+import { getApolloClient, setupApolloClient } from '../graphql/client';
+import { GET_MY_ACCOUNT } from '../graphql/queries/getMyAccount';
 
 export const toggleForm = (onLoad, formType) => async dispatch => {
   dispatch({
@@ -58,7 +62,7 @@ export const registerUser = (firstName, lastName, email, password) => async disp
         });
         break;
       default:
-        console.log(err);
+        console.error(err);
         break;
     }
   }
@@ -67,8 +71,11 @@ export const registerUser = (firstName, lastName, email, password) => async disp
 export const loginUser = (email, password) => async dispatch => {
   try {
     const { user } = await firebase.auth().signInWithEmailAndPassword(email, password);
-    const userData = await usersRef.doc(user.uid).get();
-    if (userData.exists) {
+    const accessToken = await user.getIdToken();
+    await setupApolloClient(accessToken);
+    const response = await getApolloClient().query({ query: GET_MY_ACCOUNT });
+    const userData = get(response, 'data.getMyAccount');
+    if (userData) {
       dispatch({
         type: 'SET_USER_INFO',
         payload: {
@@ -78,7 +85,7 @@ export const loginUser = (email, password) => async dispatch => {
         },
       });
     } else {
-      throw new Error('User does not exist anymore');
+      throw new Error('User does not exist');
     }
   } catch (err) {
     if (err.code == 'auth/user-not-found' || err.code == 'auth/wrong-password' || err.code == 'auth/invalid-email') {
@@ -91,7 +98,7 @@ export const loginUser = (email, password) => async dispatch => {
         },
       });
     } else {
-      console.log(err.code);
+      console.error(err);
     }
   }
 };

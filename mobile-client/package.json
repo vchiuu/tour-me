@@ -1,4 +1,5 @@
 {
+  "private": true,
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -11,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.3.7",
     "@expo/metro-config": "^0.1.48",
+    "@react-native-async-storage/async-storage": "^1.13.4",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-firebase/storage": "^10.4.1",
     "@react-navigation/drawer": "^5.11.4",
@@ -23,6 +25,7 @@
     "expo-status-bar": "~1.0.3",
     "firebase": "7.9.0",
     "graphql": "^15.5.0",
+    "lodash": "^4.17.20",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
@@ -49,6 +52,5 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.2.1"
-  },
-  "private": true
+  }
 }

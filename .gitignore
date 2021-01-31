@@ -1,0 +1,14 @@
+# app configurations
+config.js
+
+# npm
+node_modules/
+
+# macOS
+.DS_Store
+
+# environment
+.env
+
+# vscode
+.vscode/
