@@ -1,16 +1,16 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
 let client = null;
 
 export const setupApolloClient = async accessToken => {
   if (accessToken) {
-    await AsyncStorage.clear();
-    await AsyncStorage.setItem('accessToken', accessToken);
+    await AsyncStorage.setItem('accessToken', String(accessToken));
   }
   const httpLink = createHttpLink({
-    uri: 'http://192.168.0.24:4000/graphql',
+    uri: Constants.manifest.extra.apolloServerUri,
   });
   const authLink = setContext(async (_, { headers }) => {
     const token = await AsyncStorage.getItem('accessToken');
