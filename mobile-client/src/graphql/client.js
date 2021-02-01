@@ -21,9 +21,20 @@ export const setupApolloClient = async accessToken => {
       },
     };
   });
+  const defaultOptions = {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+  };
   client = new ApolloClient({
     cache: new InMemoryCache(),
     link: authLink.concat(httpLink),
+    defaultOptions: defaultOptions,
   });
   return client;
 };

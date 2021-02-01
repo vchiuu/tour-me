@@ -44,7 +44,7 @@ const Venue = props => {
           <Text style={styles.title}> Algonquin Park {props.title} </Text>
           <Text style={styles.subtitle}> Trails </Text>
           <FlatList
-            style={styles.flatlist}
+            style={{ flexGrow: 0 }}
             horizontal
             data={DATA}
             renderItem={renderTrails}
@@ -53,7 +53,7 @@ const Venue = props => {
           />
           <Text style={styles.subtitle}> Best Spots </Text>
           <FlatList
-            style={styles.flatlist}
+            style={{ flexGrow: 0 }}
             horizontal={true}
             data={DATA}
             renderItem={renderSpots}
