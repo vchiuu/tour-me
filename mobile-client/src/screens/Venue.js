@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import ContentCard from '../components/ContentCard';
 import HikeBGImg from '../assets/images/default-hike/hike-background.svg';
@@ -23,11 +23,9 @@ const DATA = [
   {
     id: '126',
     title: 'Hello World',
-  }
+  },
 ];
 const Venue = props => {
-  const [] = useState();
-
   const renderTrails = ({ item }) => (
     <ContentCard title={item.title} img={item.img} briefDescription={item.briefDescription} />
   );
@@ -35,7 +33,7 @@ const Venue = props => {
   const renderSpots = ({ item }) => {
     <ContentCard title={item.title} img={item.img} briefDescription={item.briefDescription} />
   };
-  
+
   return (
     <>
       <SafeAreaView style={styles.background}>
