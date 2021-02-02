@@ -11,7 +11,7 @@ const server = new ApolloServer({
     const token = (req.headers.authorization || '').split(' ').pop();
     const user = await getUserFromToken(token);
     if (!user) {
-      throw new AuthenticationError();
+      //throw new AuthenticationError();
     }
     return { user };
   },
