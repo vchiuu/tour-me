@@ -10,8 +10,9 @@ import DrawerContent from './DrawerContent';
 
 import Landing from '../screens/Landing';
 import SignIn from '../screens/SignIn';
-// import Home from '../screens/Home';
+import Home from '../screens/Home';
 import Venue from '../screens/Venue';
+import UserProfile from '../screens/UserProfile';
 
 const RootStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -19,8 +20,9 @@ const Drawer = createDrawerNavigator();
 const AppNavigation = ({ isSignedIn }) => {
   const DrawerRoutes = () => (
     <Drawer.Navigator drawerPosition="right" drawerContent={props => <DrawerContent {...props} />}>
-      {/*<Drawer.Screen name="Home" component={Home} />*/}
-      <RootStack.Screen name="Venue" component={Venue} options={{ headerShown: false }} />
+      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Venue" component={Venue} options={{ headerShown: false }} />
+      <Drawer.Screen name="UserProfile" component={UserProfile} />
     </Drawer.Navigator>
   );
 

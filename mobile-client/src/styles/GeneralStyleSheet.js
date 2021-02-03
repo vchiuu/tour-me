@@ -159,6 +159,11 @@ const GeneralStyles = StyleSheet.create({
     fontSize: 14,
     maxWidth: '95%',
   },
+  profileImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+  },
   textform: {
     backgroundColor: '#fff',
     height: 38,
