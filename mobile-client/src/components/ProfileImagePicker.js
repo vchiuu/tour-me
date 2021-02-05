@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 
 const ProfileImagePicker = () => {
   const [image, setImage] = useState(null);
-  
+
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
@@ -32,7 +32,7 @@ const ProfileImagePicker = () => {
   return (
     <View>
       <TouchableOpacity onPress={pickImage}>
-        <Text>Select Image from Gallery</Text>
+        <Text>Select from Gallery</Text>
       </TouchableOpacity>
     </View>
   );

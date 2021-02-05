@@ -3,6 +3,7 @@ const USER_INITIAL_STATE = {
   lastName: '',
   email: '',
   isSignedIn: false,
+  profileImg: '',
 };
 
 export const userProfileReducer = (state = USER_INITIAL_STATE, action) => {
@@ -14,6 +15,11 @@ export const userProfileReducer = (state = USER_INITIAL_STATE, action) => {
         lastName: action.payload.lastName,
         email: action.payload.email,
         isSignedIn: true,
+      };
+    case 'SET_PROFILE_IMAGE':
+      return {
+        ...state,
+        profileImg: action.payload.profileImg,
       };
     default:
       return state;

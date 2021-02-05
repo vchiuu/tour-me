@@ -33,6 +33,9 @@ const GeneralStyles = StyleSheet.create({
     fontFamily: 'AirbnbCereal-Light',
     fontSize: 16,
   },
+  clearButton: {
+    backgroundColor: '#FFCCCC',
+  },
   contentCardDark: {
     width: 116,
     height: 167,
