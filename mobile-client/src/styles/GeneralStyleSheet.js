@@ -17,6 +17,10 @@ const GeneralStyles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
   },
+  backgroundColorContainer: {
+    flexDirection: 'row',
+    height: 22,
+  },
   button: {
     display: 'flex',
     backgroundColor: '#499AFD',
@@ -35,6 +39,12 @@ const GeneralStyles = StyleSheet.create({
   },
   clearButton: {
     backgroundColor: '#FFCCCC',
+  },
+  colorSelector: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    marginHorizontal: 5,
   },
   contentCardDark: {
     width: 116,

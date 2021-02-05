@@ -3,7 +3,9 @@ const USER_INITIAL_STATE = {
   lastName: '',
   email: '',
   isSignedIn: false,
-  profileImg: '',
+  profileImage: '',
+  profileImageURI: '',
+  profileBgColor: '',
 };
 
 export const userProfileReducer = (state = USER_INITIAL_STATE, action) => {
@@ -19,7 +21,9 @@ export const userProfileReducer = (state = USER_INITIAL_STATE, action) => {
     case 'SET_PROFILE_IMAGE':
       return {
         ...state,
-        profileImg: action.payload.profileImg,
+        profileBgColor: action.payload.profileBgColor,
+        profileImage: action.payload.profileImage,
+        profileImageURI: action.payload.profileImageURI,
       };
     default:
       return state;

@@ -2,13 +2,23 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Image, Easing, View, Text, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modalbox';
-import { setProfileImage } from '../actions/UserProfileActions';
+import { setProfileImage, setProfileImageBackgroundColor } from '../actions/UserProfileActions';
 import ProfileImagePicker from '../components/ProfileImagePicker';
 import ProfileIndex from '../components/ProfileIndex';
 import DefaultProfilePic from '../assets/images/default-profile-img/profile-placeholder.png';
 import CameraEdit from '../assets/images/CameraEdit.svg';
 import CloseModal from '../assets/images/CloseIcon.svg';
 import styles from '../styles/GeneralStyleSheet';
+
+const BACKGROUND_COLORS = {
+  1: '#FFCCCC',
+  2: '#FFBEBC',
+  3: '#FFF58A',
+  4: '#BFFCC6',
+  5: '#C4FAF8',
+  6: '#DCD3FF',
+  7: '#FFCCF9',
+};
 
 const ProfileImagePickerModal = props => {
   const [profileModal, setProfileModal] = useState(false);
@@ -49,10 +59,10 @@ const ProfileImagePickerModal = props => {
         swipeToClose={false}
       >
         <View style={styles.innerModal}>
-          <TouchableOpacity onPress={closeModal}>
-            <CloseModal />
+          <TouchableOpacity onPress={closeModal} style={{ alignSelf: 'flex-end' }}>
+            <CloseModal style={{ fill: '#000000' }} />
           </TouchableOpacity>
-          <Text style={styles.subtitle}>Select Your Profile Photo</Text>
+          <Text style={styles.subtitle}>Preview</Text>
           <View style={styles.profileImage}>
             {props.profileImage ? (
               ProfileIndex.index[props.profileImage]
@@ -60,12 +70,26 @@ const ProfileImagePickerModal = props => {
               <Image style={styles.profileImage} source={DefaultProfilePic} />
             )}
           </View>
+          <Text style={styles.subtitle}>Select Background Color</Text>
           <View style={styles.backgroundColorContainer}>
-            <Text>Placeholder Color Selector</Text>
+            {Object.keys(BACKGROUND_COLORS).map(key => (
+              <TouchableOpacity
+                key={key}
+                onPress={() => props.onSelectBackgroundColor(key)}
+                style={styles.colorSelector}
+              >
+                <View style={[styles.colorSelector, { backgroundColor: BACKGROUND_COLORS[key] }]} />
+              </TouchableOpacity>
+            ))}
           </View>
+          <Text style={[styles.subtitle, { paddingTop: 15 }]}>Select Your Profile Image</Text>
           <View style={styles.iconContainer}>
             {Object.keys(ProfileIndex.index).map(key => (
-              <TouchableOpacity key={key} onPress={() => props.onSelectImage(key)} style={styles.profileImagePreview}>
+              <TouchableOpacity
+                key={key}
+                onPress={() => props.onSelectImage(key)}
+                style={[styles.profileImagePreview, { backgroundColor: BACKGROUND_COLORS[props.profileBgColor] }]}
+              >
                 {ProfileIndex.index[key]}
               </TouchableOpacity>
             ))}
@@ -83,6 +107,7 @@ const ProfileImagePickerModal = props => {
 const mapStateToProps = state => ({
   profileImage: state.userProfile.profileImage,
   profileImageURI: state.userProfile.profileImgURI,
+  profileBgColor: state.userProfile.profileBgColor,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -91,6 +116,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onClearImage: () => {
     dispatch(setProfileImage(''));
+  },
+  onSelectBackgroundColor: backgroundColor => {
+    dispatch(setProfileImageBackgroundColor(backgroundColor));
   },
 });
 
