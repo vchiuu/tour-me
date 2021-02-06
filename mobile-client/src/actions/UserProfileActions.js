@@ -1,17 +1,9 @@
-export const setProfileImage = uri => async dispatch => {
+export const setProfileImageAndColor = (profileImage, profileBackgroundColor) => async dispatch => {
   dispatch({
-    type: 'SET_PROFILE_IMAGE',
+    type: 'SET_PROFILE_IMAGE_AND_COLOR',
     payload: {
-      profileImage: uri,
-    },
-  });
-};
-
-export const setProfileImageBackgroundColor = backgroundColor => async dispatch => {
-  dispatch({
-    type: 'SET_PROFILE_IMAGE',
-    payload: {
-      profileBgColor: backgroundColor,
+      profileBackgroundColor,
+      profileImage,
     },
   });
 };
