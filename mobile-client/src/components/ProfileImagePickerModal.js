@@ -4,7 +4,7 @@ import { Image, Easing, View, Text, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modalbox';
 import { SvgCssUri } from 'react-native-svg';
 
-import { setProfileImageAndColor } from '../actions/UserProfileActions';
+import { setProfileImage } from '../actions/UserProfileActions';
 import CameraEdit from '../assets/images/CameraEdit.svg';
 import CloseModal from '../assets/images/CloseIcon.svg';
 import ProfileImagePicker from '../components/ProfileImagePicker';
@@ -141,7 +141,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   saveProfile: (profileImage, profileBackgroundColor) => {
-    dispatch(setProfileImageAndColor(profileImage, profileBackgroundColor));
+    dispatch(setProfileImage(profileImage, profileBackgroundColor));
   },
 });
 

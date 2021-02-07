@@ -30,9 +30,9 @@ const Venue = props => {
     <ContentCard title={item.title} img={item.img} briefDescription={item.briefDescription} />
   );
 
-  const renderSpots = ({ item }) => {
+  const renderSpots = ({ item }) => (
     <ContentCard title={item.title} img={item.img} briefDescription={item.briefDescription} />
-  };
+  );
 
   return (
     <>

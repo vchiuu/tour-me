@@ -7,8 +7,8 @@ const typeDefs = gql`
     firstName: String
     id: String!
     lastName: String
-    profileImg: Int
-    profileImgURI: String
+    profileImage: String
+    profileBackgroundColor: String
   }
 
   type Venue {
@@ -65,6 +65,11 @@ const typeDefs = gql`
 
   type Query {
     getMyAccount: User
+  }
+
+  type Mutation {
+    saveProfileImage(profileImage: String!, profileBackgroundColor: String): User
+    uploadProfileImage(file: Upload!): User
   }
 `;
 

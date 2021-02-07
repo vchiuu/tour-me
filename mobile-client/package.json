@@ -6,8 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint --ignore-path .gitignore .",
-    "lint:fix": "eslint --ignore-path .gitignore . --fix"
+    "lint": "eslint --ignore-path .gitignore ."
   },
   "dependencies": {
     "@apollo/client": "^3.3.7",

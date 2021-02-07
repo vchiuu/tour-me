@@ -8,6 +8,8 @@ export const GET_MY_ACCOUNT = gql`
       firstName
       id
       lastName
+      profileImage
+      profileBackgroundColor
     }
   }
 `;

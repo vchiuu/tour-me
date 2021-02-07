@@ -73,7 +73,8 @@ export const loginUser = (email, password) => async dispatch => {
     const { user } = await firebase.auth().signInWithEmailAndPassword(email, password);
     const accessToken = await user.getIdToken();
     await setupApolloClient(accessToken);
-    const response = await getApolloClient().query({ query: GET_MY_ACCOUNT });
+    const client = await getApolloClient();
+    const response = await client.query({ query: GET_MY_ACCOUNT });
     const userData = get(response, 'data.getMyAccount');
     if (userData) {
       dispatch({

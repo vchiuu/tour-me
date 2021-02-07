@@ -39,11 +39,11 @@ export const setupApolloClient = async accessToken => {
   return client;
 };
 
-export const getApolloClient = () => {
+export const getApolloClient = async () => {
   if (client) {
     return client;
   }
-  const token = AsyncStorage.getItem('accessToken');
+  const token = await AsyncStorage.getItem('accessToken');
   if (token) {
     return setupApolloClient(token);
   }

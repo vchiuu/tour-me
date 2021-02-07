@@ -3,6 +3,7 @@ const USER_INITIAL_STATE = {
   lastName: '',
   email: '',
   isSignedIn: false,
+  isLoading: false,
   profileBackgroundColor: null,
   profileImage: null,
 };
@@ -17,11 +18,22 @@ export const userProfileReducer = (state = USER_INITIAL_STATE, action) => {
         email: action.payload.email,
         isSignedIn: true,
       };
-    case 'SET_PROFILE_IMAGE_AND_COLOR':
+    case 'SET_PROFILE_IMAGE_REQUEST':
       return {
         ...state,
+        isLoading: true,
+      };
+    case 'SET_PROFILE_IMAGE_SUCCESS':
+      return {
+        ...state,
+        isLoading: false,
         profileBackgroundColor: action.payload.profileBackgroundColor,
         profileImage: action.payload.profileImage,
+      };
+    case 'SET_PROFILE_IMAGE_FAILURE':
+      return {
+        ...state,
+        isLoading: false,
       };
     default:
       return state;
