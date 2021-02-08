@@ -9,6 +9,7 @@ const typeDefs = gql`
     lastName: String
     profileImage: String
     profileBackgroundColor: String
+    profileHero: String
   }
 
   type Venue {
@@ -68,7 +69,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    saveProfileHero(profileHero: String): User
     saveProfileImage(profileImage: String!, profileBackgroundColor: String): User
+    uploadProfileHero(file: Upload!): User
     uploadProfileImage(file: Upload!): User
   }
 `;

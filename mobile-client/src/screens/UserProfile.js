@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-
 import EditButton from '../assets/images/EditButton.svg';
 import ProfileImagePicker from '../components/ProfileImagePickerModal';
 import ContentCard from '../components/ContentCard';
@@ -22,7 +21,7 @@ const UserProfile = props => {
     <SafeAreaView style={styles.background}>
       <View style={styles.drawer}>
         <TouchableOpacity onPress={toggleEdit}>
-          <EditButton />
+          <EditButton style={{ fill: '#000' }} />
         </TouchableOpacity>
         <ProfileImagePicker />
         <Text style={[styles.title, { paddingTop: 10 }]}>

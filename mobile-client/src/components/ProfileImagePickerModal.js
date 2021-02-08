@@ -62,7 +62,11 @@ const ProfileImagePickerModal = ({ profileBackgroundColor, profileImage, savePro
       );
     }
     if (getFileExtension(selectedImage).startsWith('svg')) {
-      return <SvgCssUri height="100%" uri={selectedImage} width="100%" />;
+      return (
+        <View style={[styles.profileImage, { backgroundColor: selectedBackgroundColor }]}>
+          <SvgCssUri height="100%" uri={selectedImage} width="100%" />
+        </View>
+      );
     }
     return <Image source={{ uri: selectedImage }} />;
   };
@@ -82,7 +86,7 @@ const ProfileImagePickerModal = ({ profileBackgroundColor, profileImage, savePro
 
   return (
     <>
-      <View style={styles.profileImage}>
+      <View style={[styles.profileImage, { backgroundColor: selectedBackgroundColor }]}>
         {renderSelectedProfileImage()}
         <TouchableOpacity onPress={openModal} style={styles.profilePicEdit}>
           <CameraEdit style={{ fill: 'white' }} />
@@ -125,7 +129,7 @@ const ProfileImagePickerModal = ({ profileBackgroundColor, profileImage, savePro
           <TouchableOpacity style={styles.clearButton} onPress={resetSelections}>
             <Text>Clear Image</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.clearButton} onPress={saveSelections}>
+          <TouchableOpacity style={styles.saveButton} onPress={saveSelections}>
             <Text>Save</Text>
           </TouchableOpacity>
         </View>
