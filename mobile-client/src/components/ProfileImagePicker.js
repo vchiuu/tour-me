@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Platform, Text, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import profileStyles from '../styles/ProfileStyleSheet';
 
 const ProfileImagePicker = () => {
   const [image, setImage] = useState(null);
@@ -30,8 +31,8 @@ const ProfileImagePicker = () => {
 
   return (
     <View>
-      <TouchableOpacity onPress={pickImage}>
-        <Text>Select from Gallery</Text>
+      <TouchableOpacity style={profileStyles.galleryButton} onPress={pickImage}>
+        <Text style={profileStyles.galleryButtonText}>Select from Gallery</Text>
       </TouchableOpacity>
     </View>
   );

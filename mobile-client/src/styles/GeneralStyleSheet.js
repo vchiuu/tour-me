@@ -17,10 +17,6 @@ const GeneralStyles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
   },
-  backgroundColorContainer: {
-    flexDirection: 'row',
-    height: 22,
-  },
   button: {
     display: 'flex',
     backgroundColor: '#499AFD',
@@ -36,15 +32,6 @@ const GeneralStyles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily: 'AirbnbCereal-Light',
     fontSize: 16,
-  },
-  clearButton: {
-    backgroundColor: '#FFCCCC',
-  },
-  colorSelector: {
-    height: 20,
-    width: 20,
-    borderRadius: 10,
-    marginHorizontal: 5,
   },
   contentCardDark: {
     width: 116,
@@ -152,13 +139,6 @@ const GeneralStyles = StyleSheet.create({
     justifyContent: 'center',
     width: screenWidth,
   },
-  iconContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    borderRadius: 15,
-  },
   jumbotitle: {
     fontFamily: 'AirbnbCereal-Medium',
     fontSize: 44,
@@ -178,29 +158,6 @@ const GeneralStyles = StyleSheet.create({
     fontFamily: 'AirbnbCereal-Light',
     fontSize: 14,
     maxWidth: '95%',
-  },
-  profileImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    alignSelf: 'center',
-  },
-  profileImagePreview: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    alignSelf: 'center',
-    backgroundColor: '#D9F1FD',
-    margin: 3,
-  },
-  profilePicEdit: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'grey',
-    width: 28,
-    height: 28,
-    borderRadius: 28 / 2,
-    transform: [{ translateX: 125 }, { translateY: -48 }],
   },
   textform: {
     backgroundColor: '#fff',

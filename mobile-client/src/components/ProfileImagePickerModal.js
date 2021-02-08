@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Image, Easing, View, Text, TouchableOpacity } from 'react-native';
+import { Image, Easing, View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modalbox';
 import { SvgCssUri } from 'react-native-svg';
 
@@ -9,6 +9,7 @@ import CameraEdit from '../assets/images/CameraEdit.svg';
 import CloseModal from '../assets/images/CloseIcon.svg';
 import ProfileImagePicker from '../components/ProfileImagePicker';
 import styles from '../styles/GeneralStyleSheet';
+import profileStyles from '../styles/ProfileStyleSheet';
 
 const profileBackgroundColors = ['#FFCCCC', '#FFBEBC', '#FFF58A', '#BFFCC6', '#C4FAF8', '#DCD3FF', '#FFCCF9'];
 
@@ -57,13 +58,13 @@ const ProfileImagePickerModal = ({ profileBackgroundColor, profileImage, savePro
       return (
         <Image
           source={{ uri: 'https://tour-me-e8aac.web.app/profile-images/placeholder.png' }}
-          style={styles.profileImage}
+          style={profileStyles.profileImage}
         />
       );
     }
     if (getFileExtension(selectedImage).startsWith('svg')) {
       return (
-        <View style={[styles.profileImage, { backgroundColor: selectedBackgroundColor }]}>
+        <View style={[profileStyles.profileImage, { backgroundColor: selectedBackgroundColor }]}>
           <SvgCssUri height="100%" uri={selectedImage} width="100%" />
         </View>
       );
@@ -73,7 +74,7 @@ const ProfileImagePickerModal = ({ profileBackgroundColor, profileImage, savePro
 
   const renderBackgroundColorOption = hexColor => (
     <TouchableOpacity key={hexColor} onPress={() => setSelectedBackgroundColor(hexColor)} style={styles.colorSelector}>
-      <View style={[styles.colorSelector, { backgroundColor: hexColor }]} />
+      <View style={[profileStyles.colorSelector, { backgroundColor: hexColor }]} />
     </TouchableOpacity>
   );
 
@@ -86,9 +87,9 @@ const ProfileImagePickerModal = ({ profileBackgroundColor, profileImage, savePro
 
   return (
     <>
-      <View style={[styles.profileImage, { backgroundColor: selectedBackgroundColor }]}>
+      <View style={[profileStyles.profileImage, { backgroundColor: selectedBackgroundColor }]}>
         {renderSelectedProfileImage()}
-        <TouchableOpacity onPress={openModal} style={styles.profilePicEdit}>
+        <TouchableOpacity onPress={openModal} style={profileStyles.profilePicEdit}>
           <CameraEdit style={{ fill: 'white' }} />
         </TouchableOpacity>
       </View>
@@ -108,30 +109,33 @@ const ProfileImagePickerModal = ({ profileBackgroundColor, profileImage, savePro
             <CloseModal style={{ fill: '#000000' }} />
           </TouchableOpacity>
           <Text style={styles.subtitle}>Preview</Text>
-          <View style={styles.profileImage}>{renderSelectedProfileImage()}</View>
+          <View style={profileStyles.profileImage}>{renderSelectedProfileImage()}</View>
           <Text style={styles.subtitle}>Select Background Color</Text>
-          <View style={styles.backgroundColorContainer}>
+          <View style={profileStyles.backgroundColorContainer}>
             {profileBackgroundColors.map(renderBackgroundColorOption)}
           </View>
           <Text style={[styles.subtitle, { paddingTop: 15 }]}>Select Your Profile Image</Text>
-          <View style={styles.iconContainer}>
+          <ScrollView contentContainerStyle={profileStyles.innerIconContainer} style={profileStyles.iconContainer}>
             {profileImages.map(imageUrl => (
               <TouchableOpacity
                 key={imageUrl}
                 onPress={() => setSelectedImage(imageUrl)}
-                style={[styles.profileImagePreview, { backgroundColor: selectedBackgroundColor }]}
+                style={[profileStyles.profileImagePreview, { backgroundColor: selectedBackgroundColor }]}
               >
                 {renderProfileImageOption(imageUrl)}
               </TouchableOpacity>
             ))}
+            <ProfileImagePicker />
+          </ScrollView>
+          <View style={profileStyles.buttonContainer}>
+            <TouchableOpacity style={profileStyles.clearButton} onPress={resetSelections}>
+              <Text style={profileStyles.clearButtonText}>Clear Image</Text>
+            </TouchableOpacity>
+            <View style={{ paddingHorizontal: '15%' }} />
+            <TouchableOpacity style={profileStyles.saveButton} onPress={saveSelections}>
+              <Text style={profileStyles.saveButtonText}>Save</Text>
+            </TouchableOpacity>
           </View>
-          <ProfileImagePicker />
-          <TouchableOpacity style={styles.clearButton} onPress={resetSelections}>
-            <Text>Clear Image</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.saveButton} onPress={saveSelections}>
-            <Text>Save</Text>
-          </TouchableOpacity>
         </View>
       </Modal>
     </>

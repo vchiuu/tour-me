@@ -20,7 +20,7 @@ const UserProfile = props => {
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.drawer}>
-        <TouchableOpacity onPress={toggleEdit}>
+        <TouchableOpacity onPress={toggleEdit} style={{ alignSelf: 'flex-end' }}>
           <EditButton style={{ fill: '#000' }} />
         </TouchableOpacity>
         <ProfileImagePicker />
