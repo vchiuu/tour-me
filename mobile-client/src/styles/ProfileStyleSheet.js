@@ -29,6 +29,13 @@ const ProfileStyles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 5,
   },
+  drawerProfileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    alignSelf: 'center',
+    marginTop: 40,
+  },
   iconContainer: {
     height: 250,
   },

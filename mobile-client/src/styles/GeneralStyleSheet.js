@@ -17,6 +17,9 @@ const GeneralStyles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
   },
+  bottomDrawerSection: {
+    marginBottom: 15,
+  },
   button: {
     display: 'flex',
     backgroundColor: '#499AFD',
@@ -81,6 +84,17 @@ const GeneralStyles = StyleSheet.create({
     width: screenWidth,
     height: screenHeight * 0.75,
     top: screenHeight * 0.25,
+  },
+  drawerLabel: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 15,
+    paddingVertical: 10,
+  },
+  drawerLabelText: {
+    fontFamily: 'AirbnbCereal-Light',
+    fontSize: 16,
+    paddingHorizontal: 5,
   },
   entryButton: {
     alignSelf: 'flex-end',
