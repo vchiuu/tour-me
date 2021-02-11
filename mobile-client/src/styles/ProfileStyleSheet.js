@@ -36,6 +36,19 @@ const ProfileStyles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 40,
   },
+  heroContainer: {
+    alignSelf: 'center',
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+  },
+  heroEditIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    backgroundColor: 'grey',
+    borderRadius: 15,
+  },
   iconContainer: {
     height: 250,
   },

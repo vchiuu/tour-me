@@ -7,6 +7,7 @@ import { setProfileHero } from '../actions/UserProfileActions';
 import CloseModal from '../assets/images/CloseIcon.svg';
 import EditButton from '../assets/images/EditButton.svg';
 import styles from '../styles/GeneralStyleSheet';
+import profileStyles from '../styles/ProfileStyleSheet';
 
 const profileHero = [
   'https://tour-me-e8aac.web.app/profile-hero/hike-hero.svg',
@@ -49,7 +50,7 @@ const HeroPickerModal = props => {
 
   const renderSelectedProfileHero = () => {
     if (!selectedHero) {
-      return null;
+      return <SvgUri uri={'https://tour-me-e8aac.web.app/profile-hero/gallery-hero.svg'} width="100%" />;
     }
     if (getFileExtension(selectedHero).startsWith('svg')) {
       return <SvgUri height="100%" uri={selectedHero} width="100%" />;
@@ -61,7 +62,7 @@ const HeroPickerModal = props => {
     <>
       <View style={styles.profileImage}>
         {renderSelectedProfileHero()}
-        <TouchableOpacity onPress={openModal} style={styles.profilePicEdit}>
+        <TouchableOpacity onPress={openModal} style={profileStyles.heroEditIcon}>
           <EditButton style={{ fill: 'white' }} />
         </TouchableOpacity>
       </View>
@@ -76,7 +77,7 @@ const HeroPickerModal = props => {
         style={styles.backdrop}
         swipeToClose={false}
       >
-        <View style={styles.innerModal}>
+        <View style={[styles.innerModal, { height: 500 }]}>
           <TouchableOpacity onPress={closeModal} style={{ alignSelf: 'flex-end' }}>
             <CloseModal style={{ fill: '#000000' }} />
           </TouchableOpacity>

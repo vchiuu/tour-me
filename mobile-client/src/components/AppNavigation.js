@@ -13,6 +13,7 @@ import SignIn from '../screens/SignIn';
 import Home from '../screens/Home';
 import Venue from '../screens/Venue';
 import UserProfile from '../screens/UserProfile';
+import EditUserProfile from '../screens/EditUserProfile';
 
 const RootStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -22,6 +23,7 @@ const AppNavigation = ({ isSignedIn }) => {
     <Drawer.Navigator drawerPosition="right" drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Venue" component={Venue} options={{ headerShown: false }} />
+      <Drawer.Screen name="EditUserProfile" component={EditUserProfile} />
       <Drawer.Screen name="UserProfile" component={UserProfile} />
     </Drawer.Navigator>
   );

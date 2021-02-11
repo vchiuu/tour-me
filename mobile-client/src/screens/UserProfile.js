@@ -2,25 +2,24 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import EditButton from '../assets/images/EditButton.svg';
+import HeroPicker from '../components/HeroPickerModal';
 import ProfileImagePicker from '../components/ProfileImagePickerModal';
 import ContentCard from '../components/ContentCard';
 import styles from '../styles/GeneralStyleSheet';
+import profileStyles from '../styles/ProfileStyleSheet';
 
-const UserProfile = props => {
-  const [editMode, setEditMode] = useState(false);
-
-  function toggleEdit() {
-    setEditMode(!editMode);
-  }
-
+const UserProfile = ({ navigation, ...props }) => {
   const renderItem = ({ item }) => (
     <ContentCard title={item.title} briefDescription={item.briefDescription} lightMode={item.lightMode} />
   );
 
   return (
     <SafeAreaView style={styles.background}>
+      <View style={profileStyles.heroContainer}>
+        <HeroPicker />
+      </View>
       <View style={styles.drawer}>
-        <TouchableOpacity onPress={toggleEdit} style={{ alignSelf: 'flex-end' }}>
+        <TouchableOpacity style={{ alignSelf: 'flex-end' }} onPress={() => navigation.navigate('EditUserProfile')}>
           <EditButton style={{ fill: '#000' }} />
         </TouchableOpacity>
         <ProfileImagePicker />
