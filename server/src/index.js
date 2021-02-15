@@ -1,5 +1,5 @@
 import './config';
-import { getUserFromToken } from './firebase';
+import { getUserFromToken } from './services/firebase';
 
 import { ApolloLogPlugin } from 'apollo-log';
 import { ApolloServer } from 'apollo-server';
