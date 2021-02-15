@@ -1,11 +1,11 @@
 import './config';
-import { getUserFromToken } from './services/firebase';
 
 import { ApolloLogPlugin } from 'apollo-log';
 import { ApolloServer } from 'apollo-server';
 
-import resolvers from './resolvers';
-import typeDefs from './typeDefs';
+import resolvers from './resolvers/root';
+import { getUserFromToken } from './services/firebase';
+import typeDefs from './typeDefs/root';
 
 const server = new ApolloServer({
   context: async ({ req }) => {

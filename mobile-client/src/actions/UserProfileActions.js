@@ -1,7 +1,11 @@
+import { ReactNativeFile } from 'apollo-upload-client';
+import * as mime from 'react-native-mime-types';
+
 import { getApolloClient } from '../graphql/client';
 import { SAVE_PROFILE_INFO } from '../graphql/mutations/saveProfileInfo';
 import { SAVE_PROFILE_IMAGE } from '../graphql/mutations/saveProfileImage';
 import { SAVE_PROFILE_HERO } from '../graphql/mutations/saveProfileHero';
+import { UPLOAD_PROFILE_IMAGE } from '../graphql/mutations/uploadProfileImage';
 import createAsyncThunk from '../utils/createAsyncThunk';
 
 export const setProfileImage = createAsyncThunk('SET_PROFILE_IMAGE', async (profileImage, profileBackgroundColor) => {
@@ -44,3 +48,20 @@ export const setProfileInfo = createAsyncThunk(
     return response.data.saveProfileInfo;
   },
 );
+
+export const uploadProfileImage = createAsyncThunk('UPLOAD_PROFILE_IMAGE', async image => {
+  const client = await getApolloClient();
+  let file = null;
+  if (image && image.uri) {
+    file = new ReactNativeFile({
+      name: image.uri.split('/').pop(),
+      type: mime.lookup(image.uri),
+      uri: image.uri,
+    });
+  }
+  const response = await client.mutate({
+    mutation: UPLOAD_PROFILE_IMAGE,
+    variables: { image: file },
+  });
+  return response.data.uploadProfileImage;
+});

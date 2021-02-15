@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
-    "lint": "eslint --ignore-path .gitignore ."
+    "lint": "eslint --ignore-path .gitignore .",
+    "prettier": "prettier --write \"src/**/*.js\""
   },
   "dependencies": {
     "apollo-log": "^1.0.1",
@@ -10,8 +11,9 @@
     "dotenv": "^8.2.0",
     "firebase-admin": "^9.4.2",
     "graphql": "^15.5.0",
-    "graphql-upload": "^11.0.0",
-    "memory-cache": "^0.2.0"
+    "lodash": "^4.17.20",
+    "memory-cache": "^0.2.0",
+    "mime-db": "^1.46.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",

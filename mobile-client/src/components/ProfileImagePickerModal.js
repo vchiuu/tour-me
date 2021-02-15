@@ -69,7 +69,7 @@ const ProfileImagePickerModal = ({ profileBackgroundColor, profileImage, savePro
         </View>
       );
     }
-    return <Image source={{ uri: selectedImage }} />;
+    return <Image source={{ uri: selectedImage }} style={profileStyles.profileImage} />;
   };
 
   const renderBackgroundColorOption = hexColor => (

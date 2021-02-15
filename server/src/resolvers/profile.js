@@ -1,18 +1,12 @@
 import { AuthenticationError, UserInputError } from 'apollo-server';
-import { GraphQLUpload } from 'graphql-upload';
 import cache from 'memory-cache';
+import mimeDB from 'mime-db';
 
-import { getFirestoreRef } from './services/firebase';
-import isHexColor from './utils/is-hex-color';
-import isUrl from './utils/is-url';
+import { getFirestoreRef, uploadFileToStorage } from '../services/firebase';
+import isHexColor from '../utils/isHexColor';
+import isUrl from '../utils/isUrl';
 
-const resolvers = {
-  Upload: GraphQLUpload,
-
-  Query: {
-    getMyAccount: async (parent, args, context) => context.user,
-  },
-
+const profileResolvers = {
   Mutation: {
     saveProfileImage: async (parent, args, context) => {
       if (!context.user) {
@@ -49,6 +43,8 @@ const resolvers = {
         profileHero: args.profileHero,
       });
       const userDoc = await userRef.get();
+      const userData = userDoc.data();
+      cache.put(userDocPath, userData, 1800000);
       return userDoc.data();
     },
 
@@ -63,9 +59,24 @@ const resolvers = {
       if (!context.user) {
         throw new AuthenticationError();
       }
-      return null;
+      if (!args.image) {
+        throw new UserInputError();
+      }
+      const { createReadStream, mimetype } = await args.image;
+      const imageExtension = mimeDB[mimetype] ? `.${mimeDB[mimetype].extensions[0]}` : '';
+      const imageFilePath = `user-profile-images/${context.user.id}${imageExtension}`;
+      const uploadedImage = await uploadFileToStorage(imageFilePath, { createReadStream });
+      const userDocPath = `users/${context.user.id}`;
+      const userRef = getFirestoreRef(userDocPath);
+      await userRef.update({
+        profileImage: uploadedImage.mediaLink,
+      });
+      const userDoc = await userRef.get();
+      const userData = userDoc.data();
+      cache.put(userDocPath, userData, 1800000);
+      return userData;
     },
   },
 };
 
-export default resolvers;
+export default profileResolvers;

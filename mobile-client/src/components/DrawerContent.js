@@ -11,14 +11,16 @@ import ProfileIcon from '../assets/images/ProfileIcon.svg';
 import QRScanIcon from '../assets/images/QRScanIconB.svg';
 import LogoutIcon from '../assets/images/LogoutIcon.svg';
 
-const DrawerContent = ({ navigation, ...props }) => {
+const DrawerContent = ({ navigation, profileImage, ...props }) => {
   const getFileExtension = url => {
     if (!url) return '';
     return String(url).split('.').pop();
   };
 
+  console.log(profileImage);
+
   const renderSelectedProfileImage = () => {
-    if (!props.profileImage) {
+    if (!profileImage) {
       return (
         <Image
           source={{ uri: 'https://tour-me-e8aac.web.app/profile-images/placeholder.png' }}
@@ -26,14 +28,14 @@ const DrawerContent = ({ navigation, ...props }) => {
         />
       );
     }
-    if (getFileExtension(props.profileImage).startsWith('svg')) {
+    if (getFileExtension(profileImage).startsWith('svg')) {
       return (
         <View style={[profileStyles.drawerProfileImage, { backgroundColor: props.selectedBackgroundColor }]}>
-          <SvgUri height="100%" uri={props.profileImage} width="100%" />
+          <SvgUri height="100%" uri={profileImage} width="100%" />
         </View>
       );
     }
-    return <Image source={{ uri: props.profileImage }} />;
+    return <Image source={{ uri: profileImage }} style={profileStyles.drawerProfileImage} />;
   };
 
   return (

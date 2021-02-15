@@ -1,3 +1,5 @@
+import pick from 'lodash/pick';
+
 const USER_INITIAL_STATE = {
   firstName: '',
   lastName: '',
@@ -12,13 +14,12 @@ const USER_INITIAL_STATE = {
 };
 
 export const userProfileReducer = (state = USER_INITIAL_STATE, action) => {
+  console.log(state.profileImage);
   switch (action.type) {
     case 'SET_USER_INFO':
       return {
         ...state,
-        firstName: action.payload.firstName,
-        lastName: action.payload.lastName,
-        email: action.payload.email,
+        ...pick(action.payload, ['firstName', 'lastName', 'email', 'profileBackgroundColor', 'profileImage']),
         isSignedIn: true,
       };
     case 'SET_PROFILE_IMAGE_REQUEST':

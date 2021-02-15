@@ -32,4 +32,17 @@ export const getUserFromToken = async token => {
   }
 };
 
-export const getFirestoreRef = async path => firebaseFirestore.doc(path);
+export const getFirestoreRef = path => firebaseFirestore.doc(path);
+
+export const uploadFileToStorage = async (path, file) =>
+  new Promise(async (resolve, reject) => {
+    const firebaseFile = await firebaseBucket.file(path);
+    file
+      .createReadStream()
+      .pipe(firebaseFile.createWriteStream({ predefinedAcl: 'publicRead' }))
+      .on('finish', async () => {
+        const [metadata] = await firebaseFile.getMetadata();
+        resolve(metadata);
+      })
+      .on('error', reject);
+  });

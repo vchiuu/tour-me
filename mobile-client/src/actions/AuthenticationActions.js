@@ -35,11 +35,7 @@ export const registerUser = (firstName, lastName, email, password) => async disp
     await usersRef.doc(userData.id).set(userData);
     dispatch({
       type: 'SET_USER_INFO',
-      payload: {
-        firstName,
-        lastName,
-        email,
-      },
+      payload: userData,
     });
   } catch (err) {
     switch (err.code) {
@@ -79,11 +75,7 @@ export const loginUser = (email, password) => async dispatch => {
     if (userData) {
       dispatch({
         type: 'SET_USER_INFO',
-        payload: {
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          email,
-        },
+        payload: userData,
       });
     } else {
       throw new Error('User does not exist');

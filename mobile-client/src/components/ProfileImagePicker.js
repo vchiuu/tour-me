@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { View, Platform, Text, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+
+import { uploadProfileImage } from '../actions/UserProfileActions';
 import profileStyles from '../styles/ProfileStyleSheet';
 
 const ProfileImagePicker = () => {
-  const [image, setImage] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -18,14 +21,14 @@ const ProfileImagePicker = () => {
   }, []);
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const pickedImage = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
     });
-    if (!result.cancelled) {
-      setImage(result.uri);
+    if (!pickedImage.cancelled) {
+      dispatch(uploadProfileImage(pickedImage));
     }
   };
 

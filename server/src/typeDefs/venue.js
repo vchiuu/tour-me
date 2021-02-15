@@ -1,19 +1,6 @@
 import { gql } from 'apollo-server';
 
-const typeDefs = gql`
-  scalar Upload
-
-  type User {
-    accountType: String!
-    email: String!
-    firstName: String
-    id: String!
-    lastName: String
-    profileImage: String
-    profileBackgroundColor: String
-    profileHero: String
-  }
-
+const venueTypeDefs = gql`
   type Venue {
     briefDescription: String
     description: String!
@@ -65,17 +52,6 @@ const typeDefs = gql`
     name: String
     thumbnailURI: String
   }
-
-  type Query {
-    getMyAccount: User
-  }
-
-  type Mutation {
-    saveProfileHero(profileHero: String): User
-    saveProfileImage(profileImage: String!, profileBackgroundColor: String): User
-    uploadProfileHero(file: Upload!): User
-    uploadProfileImage(file: Upload!): User
-  }
 `;
 
-export default typeDefs;
+export default venueTypeDefs;

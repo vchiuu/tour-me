@@ -1,6 +1,8 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ApolloLink } from 'apollo-link';
+import { createUploadLink } from 'apollo-upload-client';
 import Constants from 'expo-constants';
 
 let client = null;
@@ -9,9 +11,6 @@ export const setupApolloClient = async accessToken => {
   if (accessToken) {
     await AsyncStorage.setItem('accessToken', String(accessToken));
   }
-  const httpLink = createHttpLink({
-    uri: Constants.manifest.extra.apolloServerUri,
-  });
   const authLink = setContext(async (_, { headers }) => {
     const token = await AsyncStorage.getItem('accessToken');
     return {
@@ -20,6 +19,9 @@ export const setupApolloClient = async accessToken => {
         authorization: token ? `Bearer ${token}` : '',
       },
     };
+  });
+  const uploadLink = createUploadLink({
+    uri: Constants.manifest.extra.apolloServerUri,
   });
   const defaultOptions = {
     watchQuery: {
@@ -33,8 +35,8 @@ export const setupApolloClient = async accessToken => {
   };
   client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: authLink.concat(httpLink),
     defaultOptions: defaultOptions,
+    link: ApolloLink.from([authLink, uploadLink]),
   });
   return client;
 };
