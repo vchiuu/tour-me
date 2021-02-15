@@ -9,6 +9,18 @@ import styles from '../styles/GeneralStyleSheet';
 const SignInForm = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const attemptLogin = async () => {
+    if (errorMessage) {
+      setErrorMessage(null);
+    }
+    const { error, payload } = await props.onLogin(email, password);
+    if (error) {
+      setErrorMessage(payload);
+    }
+  };
+
   return (
     <React.Fragment>
       <Text style={styles.jumbotitle}> Sign In</Text>
@@ -33,8 +45,8 @@ const SignInForm = props => {
         <Text style={styles.forgotPassword}>Forgot Your Password?</Text>
       </TouchableOpacity>
       <View style={{ paddingVertical: 5 }} />
-      {!props.isValidFirebaseAuth && <Text style={styles.firebaseErrorMsg}> {props.firebaseAuthErrorMessage} </Text>}
-      <TouchableOpacity style={styles.entryButtonWrapper} onPress={() => props.onLogin(email, password)}>
+      {errorMessage && <Text style={styles.firebaseErrorMsg}> {errorMessage} </Text>}
+      <TouchableOpacity style={styles.entryButtonWrapper} onPress={attemptLogin}>
         <EntryButton style={styles.entryButton} />
       </TouchableOpacity>
       <Text style={signinform.account}>Don&apos;t have an account?</Text>
@@ -75,17 +87,11 @@ const signinform = StyleSheet.create({
 const mapStateToProps = state => ({
   onLoad: state.loginRegistration.onLoad,
   formType: state.loginRegistration.formType,
-  isValidFirebaseAuth: state.firebaseAuth.isValidFirebaseAuth,
-  firebaseAuthErrorMessage: state.firebaseAuth.firebaseAuthErrorMessage,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onToggleForm: (onLoad, formType) => {
-    dispatch(toggleForm(onLoad, formType));
-  },
-  onLogin: (email, password) => {
-    dispatch(loginUser(email, password));
-  },
+  onToggleForm: (onLoad, formType) => dispatch(toggleForm(onLoad, formType)),
+  onLogin: (email, password) => dispatch(loginUser({ email, password })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInForm);

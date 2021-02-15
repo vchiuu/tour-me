@@ -17,8 +17,6 @@ const DrawerContent = ({ navigation, profileImage, ...props }) => {
     return String(url).split('.').pop();
   };
 
-  console.log(profileImage);
-
   const renderSelectedProfileImage = () => {
     if (!profileImage) {
       return (

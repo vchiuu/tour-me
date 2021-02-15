@@ -1,3 +1,4 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ReactNativeFile } from 'apollo-upload-client';
 import * as mime from 'react-native-mime-types';
 
@@ -6,19 +7,21 @@ import { SAVE_PROFILE_INFO } from '../graphql/mutations/saveProfileInfo';
 import { SAVE_PROFILE_IMAGE } from '../graphql/mutations/saveProfileImage';
 import { SAVE_PROFILE_HERO } from '../graphql/mutations/saveProfileHero';
 import { UPLOAD_PROFILE_IMAGE } from '../graphql/mutations/uploadProfileImage';
-import createAsyncThunk from '../utils/createAsyncThunk';
 
-export const setProfileImage = createAsyncThunk('SET_PROFILE_IMAGE', async (profileImage, profileBackgroundColor) => {
-  const client = await getApolloClient();
-  const response = await client.mutate({
-    mutation: SAVE_PROFILE_IMAGE,
-    variables: {
-      profileImage,
-      profileBackgroundColor,
-    },
-  });
-  return response.data.saveProfileImage;
-});
+export const setProfileImage = createAsyncThunk(
+  'SET_PROFILE_IMAGE',
+  async ({ profileImage, profileBackgroundColor }) => {
+    const client = await getApolloClient();
+    const response = await client.mutate({
+      mutation: SAVE_PROFILE_IMAGE,
+      variables: {
+        profileImage,
+        profileBackgroundColor,
+      },
+    });
+    return response.data.saveProfileImage;
+  },
+);
 
 export const setProfileHero = createAsyncThunk('SET_PROFILE_HERO', async profileHero => {
   const client = await getApolloClient();
@@ -33,7 +36,7 @@ export const setProfileHero = createAsyncThunk('SET_PROFILE_HERO', async profile
 
 export const setProfileInfo = createAsyncThunk(
   'SET_PROFILE_INFO',
-  async (email, firstName, lastName, location, quote) => {
+  async ({ email, firstName, lastName, location, quote }) => {
     const client = await getApolloClient();
     const response = await client.mutate({
       mutation: SAVE_PROFILE_INFO,

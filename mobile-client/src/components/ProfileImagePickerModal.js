@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Image, Easing, View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modalbox';
@@ -29,6 +29,10 @@ const ProfileImagePickerModal = ({ profileBackgroundColor, profileImage, savePro
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBackgroundColor, setSelectedBackgroundColor] = useState(profileBackgroundColor);
   const [selectedImage, setSelectedImage] = useState(profileImage);
+
+  useEffect(() => {
+    setSelectedImage(profileImage);
+  }, [profileImage]);
 
   const openModal = () => {
     setIsOpen(true);
@@ -149,7 +153,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   saveProfile: (profileImage, profileBackgroundColor) => {
-    dispatch(setProfileImage(profileImage, profileBackgroundColor));
+    dispatch(setProfileImage({ profileImage, profileBackgroundColor }));
   },
 });
 

@@ -28,6 +28,7 @@ const SignUpForm = props => {
     isValidForm: true,
     formErrorMsg: '',
   });
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleValidEmail = value => {
     if (value.trim().length === 0) {
@@ -81,13 +82,19 @@ const SignUpForm = props => {
     }
   };
 
-  function validateAndSignUp(firstName, lastName, email, password) {
+  async function validateAndSignUp() {
+    if (errorMessage) {
+      setErrorMessage(null);
+    }
     if (emailValidation.isValidEmail && passwordValidation.isValidPassword && confirmPwdValidation.isConfirmPassword) {
       setFormValidation({
         isValidForm: true,
         formErrorMsg: '',
       });
-      props.onRegister(firstName, lastName, email, password);
+      const { error, payload } = await props.onRegister(firstName, lastName, email, password);
+      if (error) {
+        setErrorMessage(payload);
+      }
     } else {
       setFormValidation({
         isValidForm: false,
@@ -152,11 +159,8 @@ const SignUpForm = props => {
       {!formValidation.isValidForm && (
         <Text style={[styles.formErrorMsg, { paddingTop: 2 }]}> {formValidation.formErrorMsg} </Text>
       )}
-      {!props.isValidFirebaseAuth && <Text style={styles.firebaseErrorMsg}> {props.firebaseAuthErrorMessage} </Text>}
-      <TouchableOpacity
-        style={styles.entryButtonWrapper}
-        onPress={() => validateAndSignUp(firstName, lastName, email, password)}
-      >
+      {errorMessage && <Text style={styles.firebaseErrorMsg}> {errorMessage} </Text>}
+      <TouchableOpacity style={styles.entryButtonWrapper} onPress={validateAndSignUp}>
         <EntryButton style={styles.entryButton} />
       </TouchableOpacity>
       <Text style={signinform.account}>Already have an account?</Text>
@@ -191,17 +195,12 @@ const signinform = StyleSheet.create({
 const mapStateToProps = state => ({
   onLoad: state.loginRegistration.onLoad,
   formType: state.loginRegistration.formType,
-  isValidFirebaseAuth: state.firebaseAuth.isValidFirebaseAuth,
-  firebaseAuthErrorMessage: state.firebaseAuth.firebaseAuthErrorMessage,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onToggleForm: (onLoad, formType) => {
-    dispatch(toggleForm(onLoad, formType));
-  },
-  onRegister: (firstName, lastName, email, password) => {
-    dispatch(registerUser(firstName, lastName, email, password));
-  },
+  onToggleForm: (onLoad, formType) => dispatch(toggleForm(onLoad, formType)),
+  onRegister: (firstName, lastName, email, password) =>
+    dispatch(registerUser({ firstName, lastName, email, password })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
